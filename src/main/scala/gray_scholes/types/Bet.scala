@@ -1,0 +1,88 @@
+package gray_scholes.types
+
+import io.circe.{Decoder, HCursor}
+
+/**
+ * export type Bet = {
+ *  id: string
+ *  userId: string
+ *
+ *  // denormalized for bet lists
+ *  userAvatarUrl?: string
+ *  userUsername: string
+ *  userName: string
+ *
+ *  contractId: string
+ *  answerId?: string // For multi-binary contracts
+ *  createdTime: number
+ *
+ *  amount: number // bet size; negative if SELL bet
+ *  loanAmount?: number
+ *  outcome: string
+ *  shares: number // dynamic parimutuel pool weight or fixed ; negative if SELL bet
+ *
+ *  // Deprecated: Gain shares in multiple outcomes. Part of cpmm-2 multiple choice.
+ *  sharesByOutcome?: { [outcome: string]: number }
+ *
+ *  probBefore: number
+ *  probAfter: number
+ *
+ *  fees: Fees
+ *
+ *  isApi?: boolean // true if bet was placed via API
+ *
+ *  isAnte: boolean
+ *  isRedemption: boolean
+ *  isChallenge: boolean
+ *  visibility: Visibility
+ *  challengeSlug?: string
+ *
+ *  // Props for bets in DPM contract below.
+ *  // A bet is either a BUY or a SELL that sells all of a previous buy.
+ *  isSold?: boolean // true if this BUY bet has been sold
+ *  // This field marks a SELL bet.
+ *  sale?: {
+ *    amount: number // amount user makes from sale
+ *    betId: string // id of BUY bet being sold
+ *  }
+ * } & Partial<LimitProps>
+ *
+ * export type NumericBet = Bet & {
+ *  value: number
+ *  allOutcomeShares: { [outcome: string]: number }
+ *  allBetAmounts: { [outcome: string]: number }
+ * }
+ *
+ * // Binary market limit order.
+ * export type LimitBet = Bet & LimitProps
+ *
+ * type LimitProps = {
+ *  orderAmount: number // Amount of mana in the order
+ *  limitProb: number // [0, 1]. Bet to this probability.
+ *  isFilled: boolean // Whether all of the bet amount has been filled.
+ *  isCancelled: boolean // Whether to prevent any further fills.
+ *  // A record of each transaction that partially (or fully) fills the orderAmount.
+ *  // I.e. A limit order could be filled by partially matching with several bets.
+ *  // Non-limit orders can also be filled by matching with multiple limit orders.
+ *  fills: fill[]
+ *  expiresAt?: number // ms since epoch.
+ * }
+ *
+ * export type fill = {
+ *  // The id the bet matched against, or null if the bet was matched by the pool.
+ *  matchedBetId: string | null
+ *  amount: number
+ *  shares: number
+ *  timestamp: number
+ *  // If the fill is a sale, it means the matching bet has shares of the same outcome.
+ *  // I.e. -fill.shares === matchedBet.shares
+ *  isSale?: boolean
+ * }
+ */
+case class Bet()
+
+object Bet {
+//  implicit val BetDecoder: Decoder[Bet] = (c: HCursor) => {
+//
+//  }
+}
